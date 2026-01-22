@@ -1,0 +1,2 @@
+loadstring(game:HttpGet("https://raw.githubusercontent.com/snwmdd114514-lang/roblox-lua-/refs/heads/main/线上下载版(稳定)"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/snwmdd114514-lang/roblox-lua-/refs/heads/main/本地加强版.lua"))()
